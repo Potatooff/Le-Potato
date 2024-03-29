@@ -69,8 +69,6 @@
 database/configuration.yaml
 ```
 
-
-
 * **Once you are done, you can launch the web server if the libraries are done installing!**
 
     <details>
@@ -90,13 +88,6 @@ database/configuration.yaml
 
     </details>
 
-
-
-
-
-
-
-
 * **Once it is all set you can open the website url, by default it is**
 
 ```bash
@@ -107,9 +98,18 @@ It will look like this:
 
 ![Le Potato - Home Page](database/demos/image.png)
 
+
 Once you press New Chat button it will get you here:
 
 ![alt text](database/demos/image-1.png)
 
-### Here you go all set, Have fun! If you had issues dont hesitate to report it on the repo
+* **You can change the background if you dont like it by going to:**
+
+```bash
+  src\frontend\static\images
+```
+
+**there you will drop your background you wanted and just rename it toji.jpg to make it easier.**
+
+### Here you go all set, Have fun! If you had issues dont hesitate to report it on the repo | I mainly used the UI with OpenRouter API for now but will work with LLAMACPP with some changes.
 
