@@ -1,0 +1,55 @@
+<!--
+BSD 3-Clause License
+Copyright (c) 2024, Potatooff
+Producitivity at your door! - PotatoOff Note
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Le Potato</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="icon" type="image/ico" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <!--BETA FEATURES-->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/tomorrow-night-bright.min.css">
+</head>
+<body class="font-sans">
+    <div class="chat-container">
+
+        <div class="TopBar">
+            <div class="TopBar-LeftSide">
+                <a href="{{ url_for('home') }}" target="_self"><p>Le Potato</p></a>
+            </div>
+            <div class="TopBar-RightSide">
+                <a href="#" target="_self" onclick="resetChat()">New Chat</a>
+            </div>
+        </div>
+
+        <div id="chatHistory" class="p-4 space-y-2">
+            <!-- Chat messages will spawn here Potatoe -->
+        </div>
+
+        <div class="rounded-2xl chat-input-section">
+            <input id="file-input" type="file" name="file" multiple>
+            <button id="attachFile" class="attach-file rounded-xl transition-colors ml-1.5 mb-1.5 mt-1" onclick="document.getElementById('file-input').click();">
+                attach_file
+            </button> 
+            <textarea id="messageInput" class="chat-input px-2 py-3" rows="1" placeholder="Type here!"></textarea>
+            <button id="sendButton" class="send-button rounded-xl transition-colors mr-1.5 mb-1.5 mt-1.5">
+                arrow_upward
+            </button>                     
+        </div>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>

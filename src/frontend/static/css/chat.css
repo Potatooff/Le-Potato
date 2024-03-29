@@ -1,0 +1,226 @@
+/* 
+BSD 3-Clause License
+Copyright (c) 2024, Potatooff
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap'); /* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'); /* Icons */
+@import url('https://fonts.googleapis.com/css2?family=Anta&family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap'); /* FONTS */
+
+* {
+    cursor: none !important;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    /*background-image: radial-gradient(circle at center, #09090b 60%, #18181b 100%);*/ /* Gradient background - uncomment this line, remove/comment the line below - Change chat.js*/
+    background-image: url('../images/toji.jpg'); /* Path for a wallpaper image */
+    /* Keep those if you want a wallpaper - Else remove those 3 lines below and use a (gradient) color*/
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed; 
+}
+
+/* FULL PAGE SELECTION */
+::selection {
+    color: #171110;
+    background-color: #64748b;
+} 
+
+::-moz-selection {
+    color: #171110;
+    background-color: #64748b;
+}
+
+
+/* TOP BAR */ 
+.TopBar {
+    display: flex;
+    margin-top: 1%;
+    margin-bottom: 0px;
+    justify-content: end;
+}
+.TopBar-LeftSide {
+    margin-left: 25%;
+    flex-grow: 1;
+    color: #d4d4d8;
+    font-size: 25px;
+    font-weight: 700;
+    font-style: normal;
+    align-self: center;
+    font-family: "Encode Sans Expanded", sans-serif;
+
+}
+.TopBar-RightSide {
+    margin-right: 25%;
+    font-weight: 400;
+    font-style: normal;
+    align-self: center;
+    justify-content: end;
+    font-family: "Encode Sans Expanded", sans-serif;
+
+}
+.TopBar-RightSide a {
+    color: #d4d4d8;
+    margin-right: 15px;
+}
+.TopBar-RightSide a:hover {
+    color:#134e4a;
+    transition: 150ms ease-out;
+}
+
+/* Main Content Div */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 20px);
+    background-color: transparent;
+}
+
+/* Chat history div */
+#chatHistory {
+    justify-content:initial;
+    width: 75%;
+    padding-left: 27%;
+    flex-grow: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #404040 #18181b; 
+}
+
+/* Chat History Scrollbar Customization */
+#chatHistory::-webkit-scrollbar {
+    width: 8px; 
+}
+#chatHistory::-webkit-scrollbar-track {
+    background: #262626; 
+}
+#chatHistory::-webkit-scrollbar-thumb {
+    background-color: #303030; 
+    border-radius: 4px;
+}
+#chatHistory::-webkit-scrollbar-thumb:hover {
+    background-color: #3d3d3d; 
+}
+
+/* Messages Styling */
+.title {
+    font-size: 17px;
+    color: #e4e4e7;
+    font-weight: 500; 
+    margin-bottom: 0.2%;
+    font-family: "Anta", sans-serif;
+}
+.content {
+    font-size: 17px;
+    color: #d4d4d8;
+    word-wrap: break-word; 
+    white-space: pre-wrap; 
+    font-style: normal;
+    font-optical-sizing: auto;
+    font-family: "Space Grotesk", sans-serif;
+}
+.chat-message {
+    margin-bottom: 5px;
+}
+
+/* Chat Box*/
+.chat-input-section {
+    margin-left: 30%;
+    width: 40%;
+    padding: 1px; 
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    border: 1px solid #525252;
+    box-shadow: -2px 2px 18px #646363;
+}
+
+/* Chat Box - Attach File Styling */
+.attach-file {
+    margin: 1px; 
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    color: #e5e5e5;
+    background-color: transparent;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Material Symbols Outlined';
+    padding-top: 2px;
+    padding-left: 8px;
+    padding-right: 8px; 
+    padding-bottom: 2px;
+}
+.attach-file:hover {
+    font-weight: 500;
+    font-size: 20px;
+    color: #09090b;
+    background-color: #f4f4f5;
+    box-shadow: 0 0px 10px #ffffff;
+}
+#file-input {
+    display: none; 
+}
+
+/* Chat Box - Text Box Styling */
+.chat-input {
+    resize: none; 
+    cursor: none;
+    border: none;
+    height: 20px;
+    flex-grow: 1;
+    padding: 0 8px; 
+    color: #fafafa; 
+    margin-right: 4px;
+    line-height: 20px; 
+    overflow-y: hidden;
+    box-sizing: border-box; 
+    background-color: transparent;
+    font-style: normal;
+    font-optical-sizing: auto;
+    font-family: "Space Grotesk", sans-serif;
+}
+.chat-input::placeholder {
+    color: #71717a; 
+}
+.chat-input:focus {
+    outline: none;
+    border-color: #505050; 
+}
+
+/* ChatBox - Send Button Styling */
+.send-button {
+    margin: 1px; 
+    display: flex;
+    flex-shrink: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fafafa;
+    padding-top: 2px;
+    padding-left: 8px;
+    padding-right: 8px; 
+    align-items: center;
+    padding-bottom: 2px;
+    height: fit-content;
+    justify-content: center;
+    background-color: transparent;
+    font-family: 'Material Symbols Outlined';
+}
+.send-button:hover {
+    font-size: 18px;
+    font-weight: 500;
+    color: #09090b;
+    background-color: #f4f4f5;
+    box-shadow: 0 0px 12px #ffffff;
+
+}
+.send-button.active {
+    font-size: 18px;
+    color: #09090b;
+    font-weight: 500;
+    background-color: #f4f4f5; 
+}

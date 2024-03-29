@@ -1,0 +1,58 @@
+<!--
+BSD 3-Clause License
+Copyright (c) 2024, Potatooff
+Producitivity at your door! - PotatoOff Note
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Le Potato</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+  <link rel="icon" type="image/ico" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="h-full flex flex-col justify-start items-center">
+    <div class="TopBar">
+        <div class="TopBar-LeftSide">
+            <p>Le Potato</p>
+        </div>
+        <div class="TopBar-RightSide">
+            <a href="{{ url_for('chat') }}" target="_self">New Chat</a>
+            <a href="https://github.com/Potatooff/Le-Potato" target="_blank">Github</a>
+        </div>
+    </div>
+    <h1 class="text-4xl pt-48" id="PageTitle">
+        <mark style="background-color: #c0afbe;">Beyond</mark><br>
+        Simple Chat<br>
+        Interface
+    </h1>
+    <p class="mt-2" id="LePotatoDescription">
+        <b style="font-size: 17px;">Le Potato</b> is an Open-Source Software <mark style="background-color: #DF859B;">LLM Inference Software</mark> mixing elegance and minimalism with a painless and familiar user experience.
+        <br>You can work with your documents (RAG) using your favorite open source LLMs and embedding models with a wallpaper of your choice.
+        <br>It is easy to configure and customize plus on top of this beauty made by 
+        <a href="https://github.com/Potatooff" target="_blank">
+            <mark style="background-color: #86efac;">Crunchy Potato</mark>.
+        </a>It is left under 
+        <a href="https://github.com/Potatooff/Le-Potato/blob/main/LICENSE" target="_blank">
+            <mark style="background-color: #fca5a5;">BSD 3-Clause License</mark>.
+        </a>
+    </p>
+    <div class="mt-2 LePotatoChat">
+        <button class="mx-2 px-10 py-3 rounded-2xl">
+            <a href="{{ url_for('chat') }}" target="_self">Chat with Le Potato</a>
+        </button>
+    </div>
+    <div class="mt-2 LePotatoRessources">
+        <span>
+            <span style="margin: 0px; font-weight: 600;">
+                <a href="https://github.com/Potatooff/Le-Potato/releases/tag/Beta" target="_blank">Version 0.1 Beta</a>
+            </span>
+        </span>
+    </div>
+</body>
+</html>
+
+

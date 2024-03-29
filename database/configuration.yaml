@@ -1,0 +1,34 @@
+GENERAL:
+  # General settings for the web server
+  host: 
+  port: 1234
+  debug: True
+  cli_mode: False
+
+  # General settings for the model inference | Required either self host or api host (tested with OpenRouter + LlamaCPP)
+  self_host: False
+  model_path: ""
+  online_model_name: ""
+  online_model_api_key: ""
+
+  embedding_model: "Supabase/gte-small"
+  embedding_model_dimensions: 384
+
+  display_chat_history: False
+  
+
+MODEL_INFERENCE_PARAMS:
+  # Parameters for model inference
+  model_default_top_p: 0.75
+  model_default_top_k: 0
+  model_default_min_p: 0
+  model_default_temperature: 0.8
+
+  model_default_max_tokens:
+  model_default_stop_sequence:
+  model_default_context_length:
+  model_default_new_max_tokens:
+
+  model_default_frequency_penalty:
+  model_default_presence_penalty:
+  model_default_repetition_penalty: 1.05
