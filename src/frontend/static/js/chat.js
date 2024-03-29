@@ -6,7 +6,7 @@ Copyright (c) 2024, Potatooff
 
 // Global variables   
 
-const NormalMode = false; // Set to true for real inference, false for dev mode
+const NormalMode = true; // Set to true for real inference, false for dev mode
 let llmGenerating = false;
 const renderer = new marked.Renderer(); // marker renderer
 const sendButton = document.getElementById('sendButton');
