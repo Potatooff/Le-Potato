@@ -111,5 +111,5 @@ Once you press New Chat button it will get you here:
 
 **there you will drop your background you wanted and just rename it toji.jpg to make it easier.**
 
-### Here you go all set, Have fun! If you had issues dont hesitate to report it on the repo | I mainly used the UI with OpenRouter API for now but will work with LLAMACPP with some changes.
+### Here you go all set, Have fun! If you had issues dont hesitate to report it on the repo | I mainly used the UI with OpenRouter API for now but will work with LLAMACPP with some changes. | Tested with OpenRouter | RAG Issues
 
