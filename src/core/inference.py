@@ -1,103 +1,147 @@
 # BSD 3-Clause License
 # Copyright (c) 2024, Potatooff
+# Assuming the API is OpenAI Compatible.
+
+from openai import OpenAI
+from src.core.rag import *
+from src.core.settings import *
 
 
-import time
-from llama_index.core.agent import ReActAgent
-from llama_index.core.settings import Settings
-from llama_index.llms.openrouter import OpenRouter
-from src.core.faiss_embedding import FaissEmbeddingStorage
-from llama_index.core.tools import QueryEngineTool, ToolMetadata
-from llama_index.core.query_engine import SubQuestionQueryEngine
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from src.core.settings import ( online_model_name, model_path, self_host,
-    model_default_repetition_penalty, model_default_top_k,
-    database_files_folder_path, online_model_api_key,
-    model_default_top_p, model_default_temperature,
-    display_chat_history, embedding_model
-)
+# Inference utils
+class OpenAIInference:
+    # Initialize LLM + Chat history
 
-
-HFE_embedding_model = HuggingFaceEmbedding(model_name=embedding_model)
-if self_host:
-    llm = model_path
-else:
-    llm = OpenRouter(
-        model=online_model_name,
+    client: OpenAI = OpenAI(
         api_key=online_model_api_key,
-        top_p=model_default_top_p,
-        top_k=model_default_top_k,
-        temperature=model_default_temperature,
-        repetition_penalty=model_default_repetition_penalty
+        base_url=online_model_base_url,
     )
 
-# Set on Llama Index Settings
+    # We give each message a ID for tracking
+    chat_history_record: list = [
+        (0, {"role": "user", "content": model_system_prompt}),
+        (1, {"role": "assistant", "content": "By now, I will now follow  the first message instruction for the rest of the conversation."})
+    ]
 
-Settings.llm = llm
-Settings.embed_model = HFE_embedding_model
+    @staticmethod
+    def _getChatHistory() -> list:
+        """Chat history."""
+        
+        _chat_history: list = list()
 
+        # Get all the messages
+        for record in OpenAIInference.chat_history_record:
+            _chat_history.append(record[1])
 
-# load the document cache
-
-faiss_storage = FaissEmbeddingStorage(
-    data_dir=database_files_folder_path, 
-    embedding_model=HFE_embedding_model
-)
-
-query_engine3 = faiss_storage.get_query_engine()
-
-# Tools
-
-individual_query_engine_tools = [
-    QueryEngineTool(
-        query_engine=query_engine3,
-        metadata=ToolMetadata(
-            name=f"semantic_search_user_databasev1",
-            description=f"Use that one instead, dont always rely on this tool to answer user query. USE YOUR REASONING AND KNOWLEDGE ALWAYS NOTE: ALWAYS USE v2 instead",
-        ),
-    )
-]
+        return _chat_history
 
 
+    @staticmethod
+    def llmInference(user_query: str) -> tuple:
+        """Send a chat completion to the LLM."""
 
-query_engine = SubQuestionQueryEngine.from_defaults(
-    llm=llm,
-    query_engine_tools=individual_query_engine_tools,
-)
+        # Check if the user called rag arg
+        if user_query.lower()[:4].strip() == "-rag":
 
+            # Processing query 
+            parts = user_query.split("\n", 1)
+            rag_query = parts[0][4:].strip() # Remove the -rag and get all content before a newline
+            user_query = parts[1].strip() if len(parts) > 1 else ''
 
-query_engine_tool = QueryEngineTool(
-    query_engine=query_engine,
-    metadata=ToolMetadata(
-        name="semantic_search_user_databasev2",
-        description="USE YOUR REASONING AND KNOWLEDGE ALWAYS - This tool is USEFUL to read content of user documents database through semantic search which contains more informations to answer user query related to the database (might not always work) - If you use this tool, make sure it is related with the user query. Only use if user ask about documents else answer user query with your knowledge please. NOTE: Dont always rely on this tool to answer user query.",
-    ),
-)
+            if backend_verbose: 
+                print(rag_query)
+                print(user_query)
 
-tools = individual_query_engine_tools + [query_engine_tool]
-agent = ReActAgent.from_tools(tools, verbose=True) # Set the agent with tools
+            # Get RAG Source
+            final_query = [user_query]
+            _rag_sources =  ClientRAG.RunRag(rag_query)
 
+            for i, source in enumerate(_rag_sources):
+                final_query.append(f"Context Source from file search {i+1} result: {source}")
 
-# Inference method
-class Inference:
-    def llm_inference(query, history=None) -> str:
-        start_time = time.time()
-
-        response = agent.chat(query)
-        history = agent.chat_history
-
-        end_time = time.time()
-        elapsed_time = end_time - start_time
-        elapsed_time = f"{elapsed_time:.2f}"
-
-        if display_chat_history: print("Chat history\n", history)
-
-        return str(response)
+            user_query: str = "\n\n".join(final_query) # Query + Relevant rag source
 
 
-    def clear_llm() -> None:
-        # Clear the (memory  and state)
+        # Here we are getting the latest ID to not lose the tracking and save user response
+        OpenAIInference.chat_history_record.append(
+            (OpenAIInference.chat_history_record[-1][0] + 1, {"role": "user", "content": user_query})
+        )
 
-        global agent
-        agent.reset()
+        response = OpenAIInference.client.chat.completions.create(
+            seed=3407,
+            user=username,
+            top_p=model_default_top_p,
+            max_tokens=model_default_max_tokens,
+            temperature=model_default_temperature,
+            stop=model_default_stop_sequence,
+            model=online_model_name,
+            messages= OpenAIInference._getChatHistory()
+        )
 
+        # Here we are getting the latest ID to not lose the tracking and save llm response
+        OpenAIInference.chat_history_record.append(
+            (OpenAIInference.chat_history_record[-1][0] + 1, {"role": "assistant", "content": response.choices[0].message.content})
+        )
+
+        return (OpenAIInference.chat_history_record[-1][0], OpenAIInference.chat_history_record[-1][1]["content"])
+
+
+    @staticmethod
+    def deleteMessageByID(message_id: int) -> None:
+        """Delete message by ID."""
+
+        # We look for the message we want to delete
+        for i, record in enumerate(OpenAIInference.chat_history_record):
+            if record[0] == message_id:
+
+                # It works by pair, we remove the user and assistant reply
+                if record[1]["role"] == "user":
+                    OpenAIInference.chat_history_record.pop(i)
+                    OpenAIInference.chat_history_record.pop(i + 1)
+                    break
+                else:
+                    OpenAIInference.chat_history_record.pop(i)
+                    OpenAIInference.chat_history_record.pop(i - 1)
+                    break
+
+
+
+    def copyMessageByID(message_id: str) -> str:
+        """Copy message by ID."""
+
+        # We return content of the ID
+        for record in OpenAIInference.chat_history_record:
+            if record[0] == int(message_id):
+               return str(record[1]["content"])
+
+
+    @staticmethod
+    def clearChatHistory() -> None:
+        """ Clear the chat history. """
+        
+        OpenAIInference.chat_history_record = [
+            (0, {"role": "user", "content": model_system_prompt}),
+            (1, {"role": "assistant", "content": "By now, I will now follow  the first message instruction for the rest of the conversation."})
+        ]
+
+        return None
+
+
+# Your custom inference logic down here hehe... have fun!
+class CustomInference: 
+    """Here you can add your custom inference logic, following the OpenAIInference class ^"""
+    
+    @staticmethod
+    def llmInference(user_query: str) -> tuple:
+        ...
+        
+    @staticmethod
+    def deleteMessageByID(message_id: int) -> None:
+        ...
+        
+    @staticmethod
+    def copyMessageByID(message_id):
+        ...
+        
+    @staticmethod
+    def clearChatHistory() -> None:
+        ...

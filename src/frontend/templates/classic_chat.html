@@ -1,0 +1,81 @@
+<!--
+    BSD 3-Clause License
+    Copyright (c) 2024 Potatooff 
+    Fixed bugs by NotCookey
+    Producitivity at your door! - PotatoOff Note
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ LePotatoName }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/classic_chat.css') }}">
+    <link rel="icon" type="image/ico" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,200,0,-25"/>
+
+    <!--BETA FEATURES-->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" integrity="sha512-rO+olRTkcf304DQBxSWxln8JXCzTHlKnIdnMUwYvQa9/Jd4cQaNkItIUj6Z4nvW1dqK0SKXLbn9h4KwZTNtAyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="font-sans">
+
+    <div class="TopBar">
+        <div class="TopBar-LeftSide">
+           <a href="{{ url_for('home') }}" target="_self"> <p>{{ LePotatoName }}</p> </a>
+        </div>
+        <div class="TopBar-RightSide">
+            <a href="#" class="material-symbols-rounded" target="_self" onclick="resetChat()">
+                new_window
+            </a>
+            <a href="{{ url_for('immersive_chat') }}" class="material-symbols-rounded" target="_self">
+                experiment
+            </a>
+            <a href="{{ url_for('about') }}" class="material-symbols-rounded" target="_self">
+                page_info
+            </a>
+        </div>
+    </div>
+
+    <div class="chat-container">
+
+        <div id="chatHistory" class="px-4 pt-4 space-y-2">
+            <!-- Chat messages will spawn here Potatoe -->
+        </div>
+
+        <div class="rounded-2xl chat-input-section">
+
+            <input id="file-input" type="file" name="file" multiple>
+
+            <div id="chosen-file" class="material-symbols-rounded chosen_files rounded-t-xl">    
+                <!-- Chosen file by the user gets here-->
+            </div>
+                
+
+            <div class="ChatCombo">
+                <button id="attachFile" class="material-symbols-rounded attach-file transition-colors">
+                    attach_file
+                </button> 
+                <textarea id="messageInput" class="chat-input  py-2 mt-1.5" rows="1" placeholder="Send a message to {{ llm_username }}."></textarea>
+                <button id="sendButton" class="material-symbols-rounded send-button transition-colors">
+                    arrow_upward_alt
+                </button>        
+            </div> 
+        </div>
+        
+    </div>
+
+    <script> /* Flask variables to local javascript file */ 
+        var NormalMode = "{{ backend }}" === "True"; // Set to true for real inference, false for dev mode
+        var user_username = "{{ user_username }}";
+        var llm_username = "{{ llm_username }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/classic_chat.js') }}"></script>
+</body>
+</html>

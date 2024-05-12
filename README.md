@@ -96,12 +96,11 @@ http://127.0.0.1:1234/
 
 It will look like this:
 
-![Le Potato - Home Page](database/demos/image.png)
+![Le Potato - Home Page](database/demos/demo_home_page.png)
 
+Here is a demo of a normal chat
 
-Once you press New Chat button it will get you here:
-
-![alt text](database/demos/image-1.png)
+![alt text](database/demos/demo_classic_page.png)
 
 * **You can change the background if you dont like it by going to:**
 
@@ -109,7 +108,21 @@ Once you press New Chat button it will get you here:
   src\frontend\static\images
 ```
 
-**there you will drop your background you wanted and just rename it toji.jpg to make it easier.**
+**There you will drop your background you wanted and just rename it toji.jpg to make it easier.**
 
-### Here you go all set, Have fun! If you had issues dont hesitate to report it on the repo | I mainly used the UI with OpenRouter API for now but will work with LLAMACPP with some changes. | Tested with OpenRouter | RAG Issues
+---  
+**How to use the RAG from the UI?**
 
+* You need to add `-rag` followed with your rag query that will be used for the retrieval. (Will not be showed to the model  )
+
+* Then you add a new line and write down your query for the model.
+
+Example:
+```
+-rag Who is the author?
+Do you know the author ?  
+```
+
+*LLM will only see the second line and the rag query will add retrieval results to your query!*
+
+### Here you go all set, Have fun! If you had issues dont hesitate to report it on the repo | I mainly used the UI with OpenAI compatible url

@@ -1,6 +1,7 @@
 <!--
 BSD 3-Clause License
 Copyright (c) 2024, Potatooff
+This chat is not ready!
 Producitivity at your door! - PotatoOff Note
 -->
 
@@ -13,7 +14,7 @@ Producitivity at your door! - PotatoOff Note
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/immersive_chat.css') }}">
     <link rel="icon" type="image/ico" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <!--BETA FEATURES-->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>  
@@ -29,7 +30,15 @@ Producitivity at your door! - PotatoOff Note
                 <a href="{{ url_for('home') }}" target="_self"><p>Le Potato</p></a>
             </div>
             <div class="TopBar-RightSide">
-                <a href="#" target="_self" onclick="resetChat()">New Chat</a>
+                <a href="{{ url_for('classic_chat') }}" class="material-symbols-outlined" target="_self">
+                    add
+                </a>
+                <a href="#" class="material-symbols-outlined" target="_self" onclick="resetChat()"">
+                    nights_stay
+                </a>
+                <a href="{{ url_for('about') }}" class="material-symbols-outlined" target="_self">
+                    page_info
+                </a>
             </div>
         </div>
 
@@ -49,7 +58,9 @@ Producitivity at your door! - PotatoOff Note
         </div>
         
     </div>
-
-    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    <script>
+        alert("This interface is deprecating! Better use the classic chat!");
+    </script>
+    <script src="{{ url_for('static', filename='js/immersive_chat.js') }}"></script>
 </body>
 </html>

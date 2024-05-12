@@ -1,8 +1,8 @@
 /* 
 BSD 3-Clause License
 Copyright (c) 2024, Potatooff
+Deprecated
 */
-
 
 // Global variables   
 
@@ -15,11 +15,13 @@ const messageInput = document.getElementById('messageInput');
 marked.setOptions({renderer: renderer, gfm: true, breaks: true});
 
 
+
 // Configure marked with a custom code for Code Blocks
 renderer.code = function(code, language) {
     const highlighted = language ? hljs.highlight(code, { language }).value : hljs.highlightAuto(code).value;
     return `<pre class="text-white p-2 rounded" style="background: transparent; border: 1px dashed #F5F5F5; margin-bottom: 15px; margin-top: 0px; margin-left: 15px; padding: 0px;"><div style="display: flex; padding-left: 5px;">${language}</div><code style="background: transparent; padding: 7px;" class="hljs ${language}">${highlighted}</code></pre>`;
 };  
+
 
 
 // Adjust the height of the textarea to fix the display bug
@@ -57,6 +59,8 @@ document.getElementById('file-input').onchange = async function(e) {
     }
 };
   
+
+
 // Clean user query
 function noHTMLinjection(text) {
     return text
@@ -66,6 +70,7 @@ function noHTMLinjection(text) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
+
 
 
 // New \ Reset Chat history
@@ -86,6 +91,7 @@ function resetChat() {
 }
 
 
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // HANDLE USER TO LLM CONVERSATION
@@ -94,8 +100,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (rawMessage && !llmGenerating) {
             
-            if (rawMessage === 'clearmemory') {
+            if (rawMessage === '-clear') {
                 resetChat();
+                return;
             }
 
             llmGenerating = true;
@@ -111,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const parsedMessage = marked.parse(rawMessage); // MESSAGE TRANSFORM FROM MARKDOWN -> HTML
             createMessageElement('Potatoe', parsedMessage.trim()); 
             chatHistory.scrollTop = chatHistory.scrollHeight; // Scroll to the latest message
-            
+
 
             if (NormalMode === true) {
 
@@ -125,7 +132,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(requestData),
+                    body: JSON.stringify({
+                        user_query: rawMessage
+                    }),
                 })
                 
                 .then(response => {

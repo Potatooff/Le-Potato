@@ -1,34 +1,43 @@
 GENERAL:
-  # General settings for the web server
+  # General settings for the web server | Reload the server after changing the settings
   host: 
-  port: 1234
-  debug: True
-  cli_mode: False
+  port: 1234 # Port of the web server
+  debug: False # Debug mode for the web server
+  backend: True # Enable the backend (RAG, Inference, etc.)
+  backend_verbose: False # Display more details about the backend
 
-  # General settings for the model inference | Required either self host or api host (tested with OpenRouter + LlamaCPP)
-  self_host: False
-  model_path: ""
-  online_model_name: ""
-  online_model_api_key: ""
+  # General settings for the model inference | Required either self host or api host (tested with Openai compatible endpoints like Groq)
+  # Check some content about the samplers and parameters if you need more information
 
-  embedding_model: "Supabase/gte-small"
-  embedding_model_dimensions: 384
+  hosting_method: openai # ( openai compatible endpoints only); (you can use 'custom' for a custom implementation of the inference method following the OpenAIInference class...)
+  online_model_name: "your_api_model_here" # openai model here
+  online_model_base_url: "your_api_base_url_here" # openai api base url
+  online_model_api_key: "your_api_key_here" # api key of your api
 
-  display_chat_history: False
+  rerank_top_n: 3 # Default value
+  similarity_top_k: 6 # Default value
+  rag_chunk_size: 500 # Default value
+  rag_chunk_overlap: 50 # Default value
+  embedding_model_dimensions: 1024 # Dimensions of the embedding model; my recommendation dimension
+  embedding_model: "mixedbread-ai/mxbai-embed-large-v1" # Embedding model from huggingface; my recommendation
+  reranker_model: "mixedbread-ai/mxbai-rerank-xsmall-v1" # Reranker model from huggingface; my recommendation
+
+  summarize_web_content: False # Summarize the web content before sending to the model
+  summarize_model: "pszemraj/long-t5-tglobal-base-16384-book-summary" # Summarizer model from huggingface
+
+  display_chat_history: False # Display chat history on the terminal
   
+  username: "Potato" # Your username
+  model_username: "Julianne" # Model username
 
 MODEL_INFERENCE_PARAMS:
   # Parameters for model inference
+  model_system_prompt: "Below is a conversation between ChatGPT (you) and a curious user" # leave it empty for default
   model_default_top_p: 0.75
-  model_default_top_k: 0
-  model_default_min_p: 0
-  model_default_temperature: 0.8
+  model_default_temperature: 0.85
 
-  model_default_max_tokens:
-  model_default_stop_sequence:
-  model_default_context_length:
-  model_default_new_max_tokens:
+  model_default_max_tokens: 512
+  model_default_stop_sequence: ["<s>", "</s>", "user:", "assistant"]
 
-  model_default_frequency_penalty:
-  model_default_presence_penalty:
-  model_default_repetition_penalty: 1.05
+  model_default_frequency_penalty: 0.05
+  model_default_presence_penalty: 0.05

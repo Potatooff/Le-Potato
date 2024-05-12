@@ -1,0 +1,72 @@
+/* 
+BSD 3-Clause License
+Copyright (c) 2024, Potatooff
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'); 
+
+body { 
+    font-family: 'Poppins', sans-serif; 
+    background-color: #e5e5e5;
+}
+.header { 
+    background-color: #e5e5e5; 
+}
+.content { 
+    max-width: 960px; 
+    margin: auto; 
+    padding: 50px 20px; 
+}
+.title { 
+    color: #333; 
+}
+.text { 
+    color: #555; 
+    margin-top: 20px; 
+}
+
+/* FULL PAGE SELECTION */
+::selection {
+    color: #171110;
+    background-color: #cea6a2;
+} 
+
+::-moz-selection {
+    color: #171110;
+    background-color: #cea6a2;
+}
+
+/* TOP BAR */ 
+.TopBar {
+    width:65%;
+    display: flex;
+    margin-top: 1%;
+    margin-left: 17.5%;
+    align-items: center;
+    justify-content: center;
+}
+.TopBar-LeftSide {
+    flex-grow: 1;
+    font-size: 25px;
+    font-weight: 400;
+    font-style: normal;
+    align-self: center;
+    font-family: "Encode Sans Expanded", sans-serif;
+}
+.TopBar-RightSide {
+    font-weight: 500;
+    margin-right: 10%;
+    font-style: normal;
+    align-self: center;
+    justify-content: end;
+    font-family: "Encode Sans Expanded", sans-serif;
+}
+.TopBar-RightSide a {
+    margin-right: 15px;
+}
+.TopBar-RightSide a:hover {
+    color:#f87171;
+    transition: 150ms ease-out;
+}

@@ -1,0 +1,49 @@
+<!--
+BSD 3-Clause License
+Copyright (c) 2024, Potatooff
+Producitivity at your door! - PotatoOff Note
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About {{ LePotatoName }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+    <link rel="icon" type="image/ico" href="{{ url_for('static', filename='images/favicon.ico') }}">
+</head>
+<body>
+    <div class="TopBar">
+        <div class="TopBar-LeftSide">
+           <a target="_self" href="{{ url_for('home') }}"><p>{{ LePotatoName }}</p></a>
+        </div>
+        <div class="TopBar-RightSide">
+            <a href="{{ url_for('classic_chat') }}" class="material-symbols-outlined" target="_self">
+                add
+            </a>
+            <a href="{{ url_for('immersive_chat') }}" class="material-symbols-outlined" target="_self">
+                experiment
+            </a>
+            <a href="https://github.com/Potatooff/Le-Potato" class="material-symbols-outlined" target="_self">
+                code
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <h1 class="title text-4xl font-bold">About Me</h1>
+        <p class="text text-lg">
+            Welcome to Le Potato, 
+        </p>
+        <p class="text text-lg">
+            I made this project as my first web development project to learn more about it, I use Large Language Model during my free time and thought it will be a good idea to let the model able to access my files. I like the open source community and also want to contribute in some ways so I made this project open source and readable.
+        </p>
+        <p class="text text-lg">
+            Thanks to the contribution! Astro, NotCookey, Debyte.
+        </p>
+    </div>
+</body>
+</html>
