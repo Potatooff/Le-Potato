@@ -72,7 +72,7 @@ database/configuration.yaml
 * **Once you are done, you can launch the web server if the libraries are done installing!**
 
     <details>
-    <summary>Install on Windows</summary>
+    <summary>Run server on Windows</summary>
 
     ```bash
     python main.py
@@ -80,7 +80,7 @@ database/configuration.yaml
 
     </details>
     <details>
-    <summary>Install on Linux / MacOs</summary>
+    <summary>Run server on Linux / MacOs</summary>
 
     ```bash
     python3 main.py
