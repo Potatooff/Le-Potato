@@ -4,7 +4,7 @@
 
 ## Get it working
 
-* **Open up your terminal and navigate to the project directory**
+* **Open up your terminal (mac/linux) / powershell terminal (window) and navigate to the project directory**
 
 * **First of all to be safe, let's create a virtual environment!**
 
@@ -49,7 +49,7 @@
     <summary>Install on Windows</summary>
 
     ```bash
-    pip install -r requirements.txt
+    pip install .
     ```  
 
     </details>
@@ -57,7 +57,7 @@
     <summary>Install on Linux / MacOs</summary>
 
     ```bash
-    pip3 install -r requirements.txt
+    pip3 install .
     ```
 
     </details>
