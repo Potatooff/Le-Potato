@@ -16,7 +16,7 @@ llama-index-embeddings-huggingface = "^0.2.0"
 llama-index-vector-stores-faiss = "^0.1.2"
 faiss-cpu = "^1.8.0"
 torch = "^2.3.0"
-
+colorama = "^0.4.0"
 
 [build-system]
 requires = ["poetry-core"]
